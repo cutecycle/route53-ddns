@@ -14,33 +14,33 @@ doit = async function () {
 
 
     let response = await axios.get("https://checkip.amazonaws.com");
-    address = response.data
+    address = response.data;
 
 
 
     var payload = {
         ChangeBatch: {
-         Changes: [
-            {
-           Action: "UPSERT", 
-           ResourceRecordSet: {
-            Name: process.env.AWS_ROUTE53_RECORD_NAME, 
-            ResourceRecords: [
-               {
-              Value: address
-             }
-            ], 
-            TTL: 60, 
-            Type: "A"
-           }
-          }
-         ], 
-         Comment: "Automated record by cutecycle/route53-ddns"
-        }, 
+            Changes: [
+                {
+                    Action: "UPSERT",
+                    ResourceRecordSet: {
+                        Name: process.env.AWS_ROUTE53_RECORD_NAME,
+                        ResourceRecords: [
+                            {
+                                Value: address
+                            }
+                        ],
+                        TTL: 60,
+                        Type: "A"
+                    }
+                }
+            ],
+            Comment: "Automated record by cutecycle/route53-ddns"
+        },
         HostedZoneId: process.env.AWS_ROUTE53_HOSTED_ZONE_ID
-       };
-   let result =  await route53.changeResourceRecordSets(payload);
-   console.dir(await result.promise())
+    };
+    let result = await route53.changeResourceRecordSets(payload);
+    console.dir(await result.promise())
 
 }
 
