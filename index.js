@@ -1,5 +1,6 @@
 const AWS = require('aws-sdk')
 const axios = require('axios')
+const sleep = require('sleep-promise')
 
 var route53 = new AWS.Route53();
 let options = {
@@ -12,11 +13,9 @@ let options = {
 
 doit = async function () {
 
-
-    let response = await axios.get("https://checkip.amazonaws.com");
+    let response = await axios.get(process.env.AWS_CHECK_IP_ENDPOINT ? process.env.AWS_CHECK_IP_ENDPOINT : "https://checkip.amazonaws.com");
     address = response.data;
-
-
+    console.log("updating DNS entry.")
 
     var payload = {
         ChangeBatch: {
@@ -42,6 +41,14 @@ doit = async function () {
     let result = await route53.changeResourceRecordSets(payload);
     console.dir(await result.promise())
 
+    await sleep(30000)
+    console.log("Waiting 30 seconds.")
 }
 
-doit();
+main = async function () {
+    while (true) {
+        await doit();
+    }
+
+}
+main()
