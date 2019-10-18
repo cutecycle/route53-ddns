@@ -17,7 +17,10 @@ Environment:
     AWS_ROUTE53_RECORD_NAME,
     AWS_CHECK_IP_ENDPOINT
 
+# Docker
+Has automatic restart:always and an additional environment variable:
 
+AWS_ROUTE53_PRIVATE_HOSTED_ZONE_ID, for your internal route53 zone.
 
 # Public mode
 
