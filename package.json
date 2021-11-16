@@ -13,7 +13,7 @@
     "aws-cli-js": "^2.0.6"
   },
   "dependencies": {
-    "aws-sdk": "^2.548.0",
+    "aws-sdk": "^2.814.0",
     "axios": "^0.19.0",
     "sleep-promise": "^8.0.1"
   }
